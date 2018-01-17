@@ -7,7 +7,6 @@
  
 #include <msp430.h>
 #include "display.h"
-#include "utils.h"
 
 void dis_send(unsigned char c)
 {

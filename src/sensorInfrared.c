@@ -12,10 +12,10 @@
 
 void ir_init()
 {
-    P1SEL &= ~(BIT5);
-    P1SEL2 &= ~(BIT5);
-    P1DIR &= ~(BIT5);
-    ADC10AE0 |= (BIT5);
+    P1SEL &= ~(BIT1);
+    P1SEL2 &= ~(BIT1);
+    P1DIR &= ~(BIT1);
+    ADC10AE0 |= (BIT1);
 }
 
 int ir_detect()

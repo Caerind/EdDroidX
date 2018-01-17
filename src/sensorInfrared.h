@@ -8,7 +8,7 @@
 #ifndef SENSORINFRARED_H_
 #define SENSORINFRARED_H_
 
-// P1.3
+// P1.1
 
 void ir_init();
 
