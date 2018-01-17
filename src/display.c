@@ -51,10 +51,10 @@ void dis_print(int value)
 {
 	int digit1, digit2, digit3, digit4;
 	unsigned char v[4];
-	digit4 = (c & (0x000F));
-	digit3 = (c & (0x00F0))>>0x04;
-	digit2 = (c & (0x0F00))>>0x08;
-	digit1 = (c & (0xF000))>>0x0C;
+	digit4 = (value & (0x000F));
+	digit3 = (value & (0x00F0))>>0x04;
+	digit2 = (value & (0x0F00))>>0x08;
+	digit1 = (value & (0xF000))>>0x0C;
 	v[3] = (digit4);
 	v[2] = (digit3);
 	v[1] = (digit2);
