@@ -8,6 +8,8 @@
 #ifndef SENSORLINE_H_
 #define SENSORLINE_H_
 
+// P1.2
+
 void li_init();
 
 int li_detect();

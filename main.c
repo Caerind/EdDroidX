@@ -6,25 +6,23 @@
 #include "sensorInfrared.h"
 #include "sensorLine.h"
 #include "movement.h"
+#include "display.h"
 
 void testIR()
 {
-	ir__init();
-	
-	ut_initOutput(1, 6);
-	ut_initOutput(1, 0);
+	ir_init();
 
 	while (1)
 	{
 		if (ir_detect() == 1)
 		{
-			P1OUT |= BIT6;
-			P1OUT &= ~(BIT0);
+			ut_led1(0);
+			ut_led2(1);
 		}
 		else
 		{
-			P1OUT &= ~(BIT6);
-			P1OUT |= BIT0;
+			ut_led1(1);
+			ut_led2(0);
 		}
 
 		delay(50);
@@ -34,25 +32,29 @@ void testIR()
 void testLINE()
 {
 	li_init();
-	
-	ut_initOutput(1, 6);
-	ut_initOutput(1, 0);
 
 	while (1)
 	{
 		if (li_detect() == 1)
 		{
-			P1OUT |= BIT6;
-			P1OUT &= ~(BIT0);
+			ut_led1(0);
+			ut_led2(1);
 		}
 		else
 		{
-			P1OUT &= ~(BIT6);
-			P1OUT |= BIT0;
+			ut_led1(1);
+			ut_led2(0);
 		}
 
 		delay(50);
 	}
+}
+
+void testDISPLAY()
+{
+	dis_init();
+	
+	dis_print(1234);
 }
 
 void main()
@@ -61,7 +63,9 @@ void main()
 	ch_init();
 	adc_init();
 	
-	testIR();
+	testLINE();
 	
-	//testLINE();
+	//testIR();
+	
+	// testDISPLAY
 }

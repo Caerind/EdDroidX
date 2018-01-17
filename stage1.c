@@ -1,4 +1,7 @@
 #include <msp430.h>
+#include "utils.h"
+#include "chassis.h"
+#include "adc.h"
 #include "movement.h"
 #include "stage1.h"
 

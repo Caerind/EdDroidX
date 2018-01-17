@@ -1,7 +1,10 @@
 #include <msp430.h>
-}
+#include "utils.h"
+#include "chassis.h"
+#include "adc.h"
+#include "sensorInfrared.h"
 #include "movement.h"
-#include "stage2.h"
+#include "stage3.h"
 
 void stage3_init()
 {
@@ -17,7 +20,7 @@ void stage3()
 	
 	while (1)
 	{
-		rotateRight(2);
+		left(2);
 		delay(1000);
 	}
 }

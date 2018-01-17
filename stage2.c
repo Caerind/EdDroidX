@@ -1,4 +1,8 @@
 #include <msp430.h>
+#include "utils.h"
+#include "chassis.h"
+#include "adc.h"
+#include "sensorLine.h"
 #include "movement.h"
 #include "stage2.h"
 
@@ -17,10 +21,10 @@ void stage2()
 	stage2_init();
 	
 	delay(1000);
-	for (i = 0; i < 8; i++)
+	for (i = 8; i > 0; i--)
 	{
 		move(400, 25);
-		rotateLeft(1);
+		left(1);
 		delay(500);
 	}
     stop();

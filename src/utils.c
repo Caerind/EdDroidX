@@ -10,9 +10,21 @@
 
 void ut_init()
 {
-    WDTCTL = WDTPW | WDTHOLD; // Stop watchdog timer to prevent time out reset
+	// Clocks and WatchDog
+    WDTCTL = WDTPW | WDTHOLD;
     BCSCTL1 = CALBC1_1MHZ;
     DCOCTL = CALDCO_1MHZ;
+	
+	// LED 1 & 2
+	ut_initOutput(1, 0);
+	ut_initOutput(1, 6);
+	P1OUT &= ~(BIT0 | BIT6);
+	
+	// Button S2
+	P1IE |= (BIT3);
+    P1IES |= (BIT3);
+    P1IFG &= ~(BIT3);
+    __enable_interrupt();
 }
 
 void ut_initInput(int port, int input)
@@ -62,3 +74,26 @@ void ut_delay(unsigned int ms)
     }
 }
 
+void ut_led1(unsigned int on)
+{
+	if (on == 1)
+	{
+		P1OUT |= BIT0;
+	}
+	else
+	{
+		P1OUT &= ~(BIT0);
+	}
+}
+
+void ut_led2(unsigned int on)
+{
+	if (on == 1)
+	{
+		P1OUT |= BIT6;
+	}
+	else
+	{
+		P1OUT &= ~(BIT6);
+	}
+}

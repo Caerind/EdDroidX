@@ -8,6 +8,8 @@
 #ifndef SENSORINFRARED_H_
 #define SENSORINFRARED_H_
 
+// P1.3
+
 void ir_init();
 
 int ir_detect();

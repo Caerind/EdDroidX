@@ -21,7 +21,7 @@ void right(unsigned int robotId)
 {
 	ch_move(25);
 	ch_rotateRight();
-	if (robot == 1)
+	if (robotId == 1) // Fastest Robot
 	{
 		ut_delay(264);
 	}
@@ -32,11 +32,11 @@ void right(unsigned int robotId)
 	ch_stop();
 }
 
-void left()
+void left(unsigned int robotId)
 {
 	ch_move(25);
 	ch_rotateLeft();
-	if (robot == 1)
+	if (robotId == 1) // Fastest Robot
 	{
 		ut_delay(264);
 	}
