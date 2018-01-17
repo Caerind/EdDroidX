@@ -20,7 +20,7 @@ void stage3()
 	
 	while (1)
 	{
-		left(2);
+		leftRobot(2);
 		delay(1000);
 	}
 }

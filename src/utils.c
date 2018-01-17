@@ -97,3 +97,14 @@ void ut_led2(unsigned int on)
 		P1OUT &= ~(BIT6);
 	}
 }
+
+void ut_end()
+{
+	P1OUT |= BIT0;
+	P1OUT &= ~BIT6;
+	while (1)
+	{
+		P1OUT ^= BIT0;
+		P1OUT ^= BIT6;
+	}
+}

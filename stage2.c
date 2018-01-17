@@ -24,7 +24,7 @@ void stage2()
 	for (i = 8; i > 0; i--)
 	{
 		move(400, 25);
-		left(1);
+		leftRobot(1);
 		delay(500);
 	}
     stop();

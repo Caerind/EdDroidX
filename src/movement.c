@@ -10,41 +10,51 @@
 #include "chassis.h"
 #include "movement.h"
 
-void move(unsigned int time, unsigned speed)
+void move(unsigned int time, unsigned int speed)
 {
 	ch_move(speed);
 	ut_delay(time);
 	ch_stop();
 }
 
-void right(unsigned int robotId)
+void right(unsigned int time, unsigned int speed)
 {
-	ch_move(25);
+	ch_move(speed);
 	ch_rotateRight();
-	if (robotId == 1) // Fastest Robot
-	{
-		ut_delay(264);
-	}
-	else
-	{
-		ut_delay(560);
-	}
+	ut_delay(time);
 	ch_stop();
 }
 
-void left(unsigned int robotId)
+void rightRobot(unsigned int robotId)
 {
-	ch_move(25);
-	ch_rotateLeft();
-	if (robotId == 1) // Fastest Robot
+	if (robotId == 1) // Fastest robot
 	{
-		ut_delay(264);
+		right(25, 264);
 	}
 	else
 	{
-		ut_delay(560);
+		right(25, 560);
 	}
+}
+
+void left(unsigned int time, unsigned int speed)
+{
+	ch_move(speed);
+	ch_rotateLeft();
+	ut_delay(time);
 	ch_stop();
+}
+
+void leftRobot(unsigned int robotId)
+{
+	if (robotId == 1) // Fastest robot
+	{
+		left(25, 264);
+	}
+	else
+	{
+		left(25, 560);
+	}
 }
 
 void delay(unsigned int ms)

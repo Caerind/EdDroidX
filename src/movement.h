@@ -9,8 +9,10 @@
 #define MOVEMENT_H_
 
 void move(unsigned int ms, unsigned int speed);
-void right(unsigned int robotId);
-void left(unsigned int robotId);
+void right(unsigned int ms, unsigned int speed);
+void rightRobot(unsigned int robotId);
+void left(unsigned int ms, unsigned int speed);
+void rightRobot(unsigned int robotId);
 void delay(unsigned int ms);
 void stop();
 

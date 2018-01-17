@@ -18,4 +18,6 @@ void ut_delay(unsigned int ms);
 void ut_led1(unsigned int on);
 void ut_led2(unsigned int on);
 
+void ut_end();
+
 #endif /* UTILS_H_ */
