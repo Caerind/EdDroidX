@@ -8,6 +8,9 @@
 #include <msp430.h>
 #include "utils.h"
 
+///////////////////////////////////////////////////////////////
+// Initialise les clocks, les leds et le bouton interruption //
+///////////////////////////////////////////////////////////////
 void ut_init()
 {
 	// Clocks and WatchDog
@@ -16,8 +19,7 @@ void ut_init()
     DCOCTL = CALDCO_1MHZ;
 	
 	// LED 1 & 2
-	ut_initOutput(1, 0);
-	ut_initOutput(1, 6);
+    P1DIR |= (BIT0 | BIT6);
 	P1OUT &= ~(BIT0 | BIT6);
 	
 	// Button S2
@@ -27,6 +29,9 @@ void ut_init()
     __enable_interrupt();
 }
 
+///////////////////////////////////////////////////////////////
+// Initialise une entrée directement                         //
+///////////////////////////////////////////////////////////////
 void ut_initInput(int port, int input)
 {
     if (port == 1)
@@ -47,6 +52,9 @@ void ut_initInput(int port, int input)
     }
 }
 
+///////////////////////////////////////////////////////////////
+// Initialise une sortie directement                         //
+///////////////////////////////////////////////////////////////
 void ut_initOutput(int port, int output)
 {
     if (port == 1)
@@ -63,6 +71,9 @@ void ut_initOutput(int port, int output)
     }
 }
 
+///////////////////////////////////////////////////////////////
+// Attends un certain nombre de millisecondes                //
+///////////////////////////////////////////////////////////////
 void ut_delay(unsigned int ms)
 {
     volatile unsigned int i = ms;
@@ -74,6 +85,9 @@ void ut_delay(unsigned int ms)
     }
 }
 
+///////////////////////////////////////////////////////////////
+// Allume ou éteint la led 1 (1 = on, 0 = off)               //
+///////////////////////////////////////////////////////////////
 void ut_led1(unsigned int on)
 {
 	if (on == 1)
@@ -86,6 +100,9 @@ void ut_led1(unsigned int on)
 	}
 }
 
+///////////////////////////////////////////////////////////////
+// Allume ou éteint la led 2 (1 = on, 0 = off)               //
+///////////////////////////////////////////////////////////////
 void ut_led2(unsigned int on)
 {
 	if (on == 1)
@@ -98,13 +115,44 @@ void ut_led2(unsigned int on)
 	}
 }
 
+///////////////////////////////////////////////////////////////
+// Arrête le programme et joue une animation avec les leds   //
+///////////////////////////////////////////////////////////////
 void ut_end()
 {
+	TA1CCR1 = 0;
+	TA1CCR2 = 0;
 	P1OUT |= BIT0;
 	P1OUT &= ~BIT6;
 	while (1)
 	{
 		P1OUT ^= BIT0;
 		P1OUT ^= BIT6;
+		ut_delay(70);
 	}
+}
+
+///////////////////////////////////////////////////////////////
+// Convertit une pin désirée en un BITX pour les registres   //
+///////////////////////////////////////////////////////////////
+unsigned int ut_pinToBit(unsigned int pin)
+{
+	if (pin == 0) return BIT0;
+	if (pin == 1) return BIT1;
+	if (pin == 2) return BIT2;
+	if (pin == 3) return BIT3;
+	if (pin == 4) return BIT4;
+	if (pin == 5) return BIT5;
+	if (pin == 6) return BIT6;
+	if (pin == 7) return BIT7;
+	return pin;
+}
+
+///////////////////////////////////////////////////////////////
+// Interruption                                              //
+///////////////////////////////////////////////////////////////
+#pragma vector=PORT1_VECTOR
+__interrupt void stopInterrupt(void)
+{
+	ut_end();
 }

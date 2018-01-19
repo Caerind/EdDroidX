@@ -1,51 +1,10 @@
 #include <msp430.h>
 #include "utils.h"
 #include "chassis.h"
+#include "adc.h"
 #include "sensorInfrared.h"
 #include "movement.h"
 #include "homologation.h"
-
-void homologation_init()
-{
-	ut_init(); // Init UTILS
-	ch_init(); // Init CHASSIS
-	ir_init(); // Init IR
-}
-
-#pragma vector=PORT1_VECTOR
-__interrupt void stopInterrupt(void)
-{
-	stop();
-	
-	ut_end();
-}
-
-void homologation_easy()
-{
-	homologation_init();
-	while (1)
-	{
-		move(500, 40);
-		right(2);
-		move(400, 40);
-		left(2);
-		move(1000, 40);
-	}
-}
-
-int homologation_go(unsigned int ms, unsigned int speed)
-{
-	if (ir_detect() == 0)
-	{
-		move(ms, speed);
-		return 1;
-	}
-	else
-	{
-		ut_delay(ms);
-		return 0;
-	}
-}
 
 void homologation()
 {
@@ -53,20 +12,30 @@ void homologation()
 	int distance = 0;
 	int step = 0;
 	
-	homologation_init();
-	
+	ut_init(); // Init UTILS
+	ch_init(); // Init CHASSIS
+	adc_init();// Init ADC
+	ir_init(4); // Init IR : Pin 4
+
 	ut_delay(500); 
-	time += 600.0f;
-	
+	time += 0.6f;
+
 	while (time < 20.0f)
 	{
 		if (step == 0)
 		{
-			if (homologation_go(10, 40))
+			if (ir_detect(4) == 0) // Pin 4
 			{
+				move(72, 80);
 				distance++;
 			}
-			time += 0.01f;
+			else
+			{
+				move(72, 80);
+				distance++;
+				//ut_delay(72);
+			}
+			time += 0.072f;
 			
 			if (distance >= 50)
 			{
@@ -74,15 +43,24 @@ void homologation()
 				time += 0.56f;
 				distance = 0;
 				step++;
+				ut_led1(0);
+				ut_led2(1);
 			}
 		}
 		else if (step == 1)
 		{
-			if (homologation_go(10, 40))
+			if (ir_detect(4) == 0) // Pin 4
 			{
+				move(72, 80);
 				distance++;
 			}
-			time += 0.01f;
+			else
+			{
+				move(72, 80);
+				distance++;
+				//ut_delay(72);
+			}
+			time += 0.072f;
 			
 			if (distance >= 40)
 			{
@@ -90,26 +68,34 @@ void homologation()
 				time += 0.56f;
 				distance = 0;
 				step++;
+				ut_led1(1);
+				ut_led2(0);
 			}
 		}
 		else if (step == 2)
 		{
-			if (homologation_go(10, 40))
+			if (ir_detect(4) == 0) // Pin 4
 			{
+				move(72, 80);
 				distance++;
 			}
-			time += 0.01f;
+			else
+			{
+				move(72, 80);
+				distance++;
+				//ut_delay(72);
+			}
+			time += 0.072f;
 			
 			if (distance >= 100)
 			{
 				ch_stop();
 				ut_led1(1);
+				ut_led2(1);
 				step++; // Stay in while loop, but do nothing until the end of the 20s
 			}
 		}
 	}
-	
-	stop();
 	
 	ut_end();
 }

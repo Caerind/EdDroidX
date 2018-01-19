@@ -10,19 +10,26 @@
 #include "adc.h"
 #include "sensorInfrared.h"
 
-void ir_init()
+///////////////////////////////////////////////////////////////
+// Initialise un capteur IR sur un port donné                //
+///////////////////////////////////////////////////////////////
+void ir_init(unsigned int pin)
 {
-    P1SEL &= ~(BIT1);
-    P1SEL2 &= ~(BIT1);
-    P1DIR &= ~(BIT1);
-    ADC10AE0 |= (BIT1);
+	unsigned int bit = ut_pinToBit(pin);
+    P1SEL &= ~(bit);
+    P1SEL2 &= ~(bit);
+    P1DIR &= ~(bit);
+    ADC10AE0 |= (bit);
 }
 
-int ir_detect()
+///////////////////////////////////////////////////////////////
+// Le capteur donné capte-t-il un obstacle ?                 //
+///////////////////////////////////////////////////////////////
+int ir_detect(unsigned int pin)
 {
     const int irThreshold = 130;
     int irValue;
-    irValue = adc_get(5);
+    irValue = adc_get(pin);
     return (irValue >= irThreshold) ? 1 : 0;
 }
 

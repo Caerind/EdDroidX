@@ -8,17 +8,23 @@
 #include <msp430.h>
 #include "display.h"
 
+///////////////////////////////////////////////////////////////
+// Envoit une caractère                                      //
+///////////////////////////////////////////////////////////////
 void dis_send(unsigned char c)
 {
-	P1OUT &= ~BIT4;
+	P1OUT &= ~(BIT4);
     UCB0TXBUF = c;
     while (!(IFG2 & UCB0TXIFG));
     P1OUT |= BIT4;
 }
 
+///////////////////////////////////////////////////////////////
+// Initialise l'afficheur                                    //
+///////////////////////////////////////////////////////////////
 void dis_init()
 {
-	IUCB0CTL1 = UCSWRST;
+	UCB0CTL1 = UCSWRST;
     P1DIR |= BIT4;
     P1OUT |= BIT4;
     P1SEL |= BIT7 + BIT5;
@@ -40,6 +46,9 @@ void dis_init()
 	dis_clear();
 }
 
+///////////////////////////////////////////////////////////////
+// Efface l'écran                                            //
+///////////////////////////////////////////////////////////////
 void dis_clear()
 {
 	dis_send(0x76);
@@ -47,6 +56,9 @@ void dis_clear()
 	dis_send(0x00);
 }
 
+///////////////////////////////////////////////////////////////
+// Affiche une valeur                                        //
+///////////////////////////////////////////////////////////////
 void dis_print(int value)
 {
 	int digit1, digit2, digit3, digit4;

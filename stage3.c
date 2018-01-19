@@ -6,17 +6,12 @@
 #include "movement.h"
 #include "stage3.h"
 
-void stage3_init()
+void stage3()
 {
 	ut_init(); // Init UTILS
 	ch_init(); // Init CHASSIS
 	adc_init(); // Init ADC
-	ir_init(); // Init IR
-}
-
-void stage3()
-{
-	stage3_init();
+	ir_init(1); // Init IR
 	
 	while (1)
 	{

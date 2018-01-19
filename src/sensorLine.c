@@ -10,18 +10,25 @@
 #include "adc.h"
 #include "sensorLine.h"
 
-void li_init()
+///////////////////////////////////////////////////////////////
+// Initialise un capteur ligne sur un port donné             //
+///////////////////////////////////////////////////////////////
+void li_init(unsigned int pin)
 {
-	P1SEL &= ~(BIT2);
-	P1SEL2 &= ~(BIT2);
-	P1DIR &= ~(BIT2);
-	ADC10AE0 |= (BIT2);
+	unsigned int bit = ut_pinToBit(pin);
+	P1SEL &= ~(bit);
+	P1SEL2 &= ~(bit);
+	P1DIR &= ~(bit);
+	ADC10AE0 |= (bit);
 }
 
-int li_detect()
+///////////////////////////////////////////////////////////////
+// Le capteur donné capte-t-il la ligne ?                    //
+///////////////////////////////////////////////////////////////
+int li_detect(unsigned int pin)
 {
 	const int rightThreshold = 800;
 	int rightValue;
-	rightValue = adc_get(2);
+	rightValue = adc_get(pin);
 	return (rightValue >= rightThreshold) ? 1 : 0;
 }

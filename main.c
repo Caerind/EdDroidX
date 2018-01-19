@@ -7,14 +7,15 @@
 #include "sensorLine.h"
 #include "movement.h"
 #include "display.h"
+#include "homologation.h"
 
 void testIR()
 {
-	ir_init();
+	ir_init(1);
 
 	while (1)
 	{
-		if (ir_detect() == 1)
+		if (ir_detect(1) == 1)
 		{
 			ut_led1(0);
 			ut_led2(1);
@@ -31,11 +32,11 @@ void testIR()
 
 void testLINE()
 {
-	li_init();
+	li_init(1);
 
 	while (1)
 	{
-		if (li_detect() == 1)
+		if (li_detect(1) == 1)
 		{
 			ut_led1(0);
 			ut_led2(1);
@@ -59,13 +60,5 @@ void testDISPLAY()
 
 void main()
 {
-	ut_init();
-	ch_init();
-	adc_init();
-	
-	testLINE();
-	
-	//testIR();
-	
-	// testDISPLAY
+	homologation();
 }

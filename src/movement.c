@@ -10,6 +10,9 @@
 #include "chassis.h"
 #include "movement.h"
 
+///////////////////////////////////////////////////////////////
+// Avance avec une vitesse et un temps donnés                //
+///////////////////////////////////////////////////////////////
 void move(unsigned int time, unsigned int speed)
 {
 	ch_move(speed);
@@ -17,6 +20,9 @@ void move(unsigned int time, unsigned int speed)
 	ch_stop();
 }
 
+///////////////////////////////////////////////////////////////
+// Tourne vers la droite avec une vitesse et un temps donnés //
+///////////////////////////////////////////////////////////////
 void right(unsigned int time, unsigned int speed)
 {
 	ch_move(speed);
@@ -25,6 +31,9 @@ void right(unsigned int time, unsigned int speed)
 	ch_stop();
 }
 
+///////////////////////////////////////////////////////////////
+// 90° vers la droite avec le robot spécifié                 //
+///////////////////////////////////////////////////////////////
 void rightRobot(unsigned int robotId)
 {
 	if (robotId == 1) // Fastest robot
@@ -37,6 +46,9 @@ void rightRobot(unsigned int robotId)
 	}
 }
 
+///////////////////////////////////////////////////////////////
+// Tourne vers la gauche avec une vitesse et un temps donnés //
+///////////////////////////////////////////////////////////////
 void left(unsigned int time, unsigned int speed)
 {
 	ch_move(speed);
@@ -45,6 +57,9 @@ void left(unsigned int time, unsigned int speed)
 	ch_stop();
 }
 
+///////////////////////////////////////////////////////////////
+// 90° vers la gauche avec le robot spécifié                 //
+///////////////////////////////////////////////////////////////
 void leftRobot(unsigned int robotId)
 {
 	if (robotId == 1) // Fastest robot
@@ -57,11 +72,17 @@ void leftRobot(unsigned int robotId)
 	}
 }
 
+///////////////////////////////////////////////////////////////
+// Attends une certain nombre de millisecondes               //
+///////////////////////////////////////////////////////////////
 void delay(unsigned int ms)
 {
 	ut_delay(ms);
 }
 
+///////////////////////////////////////////////////////////////
+// Arrête les moteurs                                        //
+///////////////////////////////////////////////////////////////
 void stop()
 {
 	ch_stop();

@@ -6,20 +6,15 @@
 #include "movement.h"
 #include "stage2.h"
 
-void stage2_init()
-{
-	ut_init(); // Init UTILS
-	ch_init(); // Init CHASSIS
-	adc_init(); // Init ADC
-	li_init(); // Init LINE
-}
-
 void stage2()
 {
 	int i;
-	
-	stage2_init();
-	
+
+	ut_init(); // Init UTILS
+	ch_init(); // Init CHASSIS
+	adc_init(); // Init ADC
+	li_init(1); // Init LINE
+
 	delay(1000);
 	for (i = 8; i > 0; i--)
 	{
