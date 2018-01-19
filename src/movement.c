@@ -21,6 +21,21 @@ void move(unsigned int time, unsigned int speed)
 }
 
 ///////////////////////////////////////////////////////////////
+// Avance d'une certaine distance en centimètre              //
+///////////////////////////////////////////////////////////////
+void moveDistance(unsigned int robotId, unsigned int cm)
+{
+	if (robotId == 1) // Fastest robot
+	{
+		move(10, 10); // TODO : Find
+	}
+	else
+	{
+		move(10, 10); // TODO : Find
+	}
+}
+
+///////////////////////////////////////////////////////////////
 // Tourne vers la droite avec une vitesse et un temps donnés //
 ///////////////////////////////////////////////////////////////
 void right(unsigned int time, unsigned int speed)
