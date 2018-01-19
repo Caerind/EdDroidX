@@ -38,11 +38,11 @@ void rightRobot(unsigned int robotId)
 {
 	if (robotId == 1) // Fastest robot
 	{
-		right(25, 264);
+		right(346, 21);
 	}
 	else
 	{
-		right(25, 560);
+		right(560, 72);
 	}
 }
 
@@ -64,11 +64,11 @@ void leftRobot(unsigned int robotId)
 {
 	if (robotId == 1) // Fastest robot
 	{
-		left(25, 264);
+		left(346, 21);
 	}
 	else
 	{
-		left(25, 560);
+		left(560, 72);
 	}
 }
 

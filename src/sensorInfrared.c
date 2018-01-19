@@ -27,9 +27,15 @@ void ir_init(unsigned int pin)
 ///////////////////////////////////////////////////////////////
 int ir_detect(unsigned int pin)
 {
-    const int irThreshold = 130;
-    int irValue;
-    irValue = adc_get(pin);
-    return (irValue >= irThreshold) ? 1 : 0;
+    int irValue = adc_get(pin);
+    return (irValue >= 158) ? 1 : 0;
 }
 
+///////////////////////////////////////////////////////////////
+// Le capteur donné capte-t-il un obstacle ? (Seuil en param)//
+///////////////////////////////////////////////////////////////
+int ir_detectThreshold(unsigned int pin, unsigned int threshold)
+{
+	int irValue = adc_get(pin);
+	return (irValue >= threshold) ? 1 : 0;
+}
