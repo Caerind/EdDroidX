@@ -58,7 +58,34 @@ void testDISPLAY()
 	dis_print(1234);
 }
 
+void testOPTO()
+{
+	int distance = 0;
+	int d;
+
+	ut_init();
+	ch_init();
+	adc_init();
+
+	while (distance < 500)
+	{
+		ch_move(20);
+		//ch_resetOpto();
+
+		ut_delay(10);
+		d = ch_getOptoLeft() - ch_getOptoRight();
+		if (d != 0)
+		{
+			ch_rotate(d * 16);
+		}
+
+		distance++;
+	}
+
+	ut_end();
+}
+
 void main()
 {
-	homologation();
+	testOPTO();
 }

@@ -39,7 +39,7 @@ void homologation()
 			
 			if (distance >= 50)
 			{
-				right(25, 560);
+				right(560, 72);
 				time += 0.56f;
 				distance = 0;
 				step++;
@@ -64,7 +64,7 @@ void homologation()
 			
 			if (distance >= 40)
 			{
-				left(25, 560);
+				left(560, 72);
 				time += 0.56f;
 				distance = 0;
 				step++;

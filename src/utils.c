@@ -23,6 +23,11 @@ void ut_init()
 	P1OUT &= ~(BIT0 | BIT6);
 	
 	// Button S2
+	P1SEL &= ~(BIT3);
+	P1SEL2 &= ~(BIT3);
+	P1DIR &= ~(BIT3);
+	P1REN |= (BIT3);
+	P1OUT |= (BIT3);
 	P1IE |= (BIT3);
     P1IES |= (BIT3);
     P1IFG &= ~(BIT3);
@@ -69,6 +74,35 @@ void ut_initOutput(int port, int output)
         P2SEL2 &= ~(output);
         P2DIR |= (output);
     }
+}
+
+///////////////////////////////////////////////////////////////
+// Initialise une entrée d'interruption                      //
+///////////////////////////////////////////////////////////////
+void ut_initInterrupt(int port, int input)
+{
+	if (port == 1)
+	{
+		P1SEL &= ~(input);
+		P1SEL2 &= ~(input);
+		P1DIR &= ~(input);
+		P1REN |= (input);
+		P1OUT &= ~(input);
+		P1IE |= (input);
+		P1IES |= (input);
+		P1IFG &= ~(input);
+	}
+	else if (port == 2)
+	{
+		P2SEL &= ~(input);
+		P2SEL2 &= ~(input);
+		P2DIR &= ~(input);
+		P2REN |= (input);
+		P2OUT &= ~(input);
+		P2IE |= (input);
+		P2IES |= (input);
+		P2IFG &= ~(input);
+	}
 }
 
 ///////////////////////////////////////////////////////////////

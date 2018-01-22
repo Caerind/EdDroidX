@@ -9,6 +9,9 @@
 #include "utils.h"
 #include "chassis.h"
 
+int ch_optoRight = 0;
+int ch_optoLeft = 0;
+
 ///////////////////////////////////////////////////////////////
 // Initialise la PWM et les moteurs                          //
 ///////////////////////////////////////////////////////////////
@@ -21,6 +24,7 @@ void ch_init()
     TA1CCR0 = 100;
 
     ch_stop();
+    ch_resetOpto();
 
     // init Engine Left
     ut_initOutput(2, BIT2);
@@ -28,6 +32,7 @@ void ch_init()
     P2SEL2 &= ~(BIT2);
     ut_initOutput(2, BIT1);
     P2OUT &= ~(BIT1);
+    ut_initInterrupt(2, BIT0);
 
     // init Engine Right
     ut_initOutput(2, BIT4);
@@ -35,6 +40,7 @@ void ch_init()
     P2SEL2 &= ~(BIT4);
     ut_initOutput(2, BIT5);
     P2OUT &= ~(BIT5);
+    ut_initInterrupt(2, BIT3);
 }
 
 ///////////////////////////////////////////////////////////////
@@ -113,3 +119,47 @@ void ch_stop()
     TA1CCR1 = 0;
     TA1CCR2 = 0;
 }
+
+///////////////////////////////////////////////////////////////
+// Compteur roue droite                                      //
+///////////////////////////////////////////////////////////////
+int ch_getOptoRight()
+{
+	return ch_optoRight;
+}
+
+///////////////////////////////////////////////////////////////
+// Compteur roue gauche                                      //
+///////////////////////////////////////////////////////////////
+int ch_getOptoLeft()
+{
+	return ch_optoLeft;
+}
+
+///////////////////////////////////////////////////////////////
+// Reset les compteurs (après un virage)                     //
+///////////////////////////////////////////////////////////////
+void ch_resetOpto()
+{
+	ch_optoRight = 0;
+	ch_optoLeft = 0;
+}
+
+///////////////////////////////////////////////////////////////
+// Interruption                                              //
+///////////////////////////////////////////////////////////////
+#pragma vector=PORT2_VECTOR
+__interrupt void optoInterrupt(void)
+{
+	if ((P2IN & BIT0) == BIT0)
+	{
+		ch_optoLeft++;
+		ut_led1(1);
+	}
+	if ((P2IN & BIT3) == BIT3)
+	{
+		ch_optoRight++;
+		ut_led2(1);
+	}
+}
+
